@@ -3,7 +3,7 @@ import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-s
 
 const Paginacion = ({ inicio, salto, sgtePagina, antPagina, total, cambioSalto }) => {
   return (
-    <div className='w-full bg-orange-400 h-10 mt-6 flex justify-between'>
+    <div className='w-full h-10 mt-6 flex justify-between'>
       <div className='w-fit h-full'>
         <label htmlFor='select' className='font-semibold text-sm mr-2'>
           Resultados por página:

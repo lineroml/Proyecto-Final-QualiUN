@@ -17,7 +17,7 @@ const asignaturas = [
   },
   {
     id: 2,
-    nombre: 'Ingeniería 204',
+    nombre: 'Ingeniería Astroaerospacial 204',
     codigo: 'IST 2456',
     reviews: 20,
   },
@@ -57,16 +57,16 @@ const index = () => {
     }
   };
   return (
-    <div className='w-full flex flex-col items-center h-[calc(100vh-80px)] min-h-fit bg-red-200 mt-20'>
-      <div className='w-full h-full max-w-7xl p-9 bg-blue-300'>
-        <div className='w-3/5 h-full flex-col'>
-          <SearchBar onClick={() => router.push('/courses')}></SearchBar>
+    <div className='w-full flex flex-col items-center h-[calc(100vh-80px)] min-h-fit mt-20'>
+      <div className='w-full md:h-full h-fit max-w-7xl p-9 flex md:flex-row flex-col-reverse'>
+        <div className='md:w-3/5 w-full flex justify-center h-full flex-col'>
+          <SearchBar onClick={() => router.push('/cursos')}></SearchBar>
           <div className='w-fit'>
             <h1 className='text-xl font-semibold mt-16 px-2'>Resultados de búsqueda</h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
             <span className='font-semibold'>4 resultados</span>
           </div>
-          <div className='flex flex-col mt-10 gap-2 w-full h-fit bg-yellow-200'>
+          <div className='flex flex-col mt-10 gap-2 w-full h-fit'>
             {asignaturas.slice(inicio, inicio + salto).map((asignatura) => (
               <AsignaturaTab
                 idAsig={asignatura.id}
@@ -84,6 +84,13 @@ const index = () => {
             sgtePagina={sgtePagina}
             antPagina={antPagina}
           ></Paginacion>
+        </div>
+        <div className='md:w-2/5 md:mb-0 mb-10 w-full px-9 h-full flex justify-center items-center'>
+          <img
+            src='/ilustracion_cursos.svg'
+            alt='ilustracion busqueda'
+            className='w-full max-w-[300px]'
+          />
         </div>
       </div>
     </div>
