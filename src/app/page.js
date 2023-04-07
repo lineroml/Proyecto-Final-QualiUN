@@ -30,12 +30,7 @@ export default function Home() {
               <span className='text-chinese-blue'>estudiantes</span> de la{' '}
               <span className='text-chinese-blue'>Universidad del Norte</span>.
             </span>
-            <label
-              htmlFor='search'
-              className='mt-4 med-sm:text-2xl md:text-xl text-lg font-semibold'
-            >
-              Te invitamos a buscar una asignatura:
-            </label>
+
             <SearchBar onClick={() => router.push('/cursos')}></SearchBar>
           </div>
 
