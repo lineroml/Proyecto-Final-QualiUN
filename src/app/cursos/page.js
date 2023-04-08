@@ -69,6 +69,7 @@ const index = () => {
           <div className='flex flex-col mt-10 gap-2 w-full h-fit'>
             {asignaturas.slice(inicio, inicio + salto).map((asignatura) => (
               <AsignaturaTab
+                key={asignatura.id}
                 idAsig={asignatura.id}
                 codigo={asignatura.codigo}
                 nombre={asignatura.nombre}
