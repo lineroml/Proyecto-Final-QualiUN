@@ -94,11 +94,11 @@ const Curso = ({ params }) => {
           </div>
           <div className='flex flex-col my-8 med-lg:items-start items-center'>
             <h3 className='text-2xl'>Departamento</h3>
-            <h2 className='text-3xl text-center text-chinese-blue'>
+            <h2 className='text-3xl md-lg:text-start text-center text-chinese-blue'>
               Ingeniería de Sistemas y computación
             </h2>
           </div>
-          <CustomButton type={1} text='Descargar Reporte' icon='Download'></CustomButton>
+          <CustomButton type={1} text='Descargar Reporte' icon='download'></CustomButton>
           <div className='w-fit'>
             <h1 className='text-2xl font-semibold mt-16 px-2'>Estadísticas</h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
