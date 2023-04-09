@@ -1,7 +1,6 @@
 import CustomButton from '@/app/components/CustomButton';
 import Stat from '@/app/components/cursosTab/curso/stat';
-import Image from 'next/image';
-import fs from 'fs';
+import Comment from '@/app/components/cursosTab/curso/Comment';
 
 const cursoStats = [
   {
@@ -38,87 +37,57 @@ const cursoStats = [
   {
     id: 6,
     name: 'Contenido',
-    value: 1,
+    value: 4,
     desc: 'El contenido del curso es adecuado (completo) para el desarrollo de las actividades',
   },
 ];
 
-const getRandomPfp = () => {
-  const files = fs.readdirSync('public/commentIcons');
-
-  const color = {
-    1: 'bg-comment-color-1 text-comment-color-1',
-    2: 'bg-comment-color-2 text-comment-color-2',
-    3: 'bg-comment-color-3 text-comment-color-3',
-    4: 'bg-comment-color-4 text-comment-color-4',
-    5: 'bg-comment-color-5 text-comment-color-5',
-  };
-
-  const random = Math.floor(Math.random() * files.length);
-
-  // choose random number between 1 and 5
-  const randomNum = Math.floor(Math.random() * 5) + 1;
-
-  // Create an array of adjectives for me to use
-  const adjectives = [
-    'awesome',
-    'amazing',
-    'great',
-    'fantastic',
-    'incredible',
-    'wonderful',
-    'marvelous',
-    'spectacular',
-    'stupendous',
-    'excellent',
-    'outstanding',
-    'terrific',
-    'fabulous',
-    'magnificent',
-    'remarkable',
-    'superb',
-    'dazzling',
-    'brilliant',
-    'glorious',
-    'splendid',
-    'impressive',
-    'awe-inspiring',
-    'stunning',
-    'astonishing',
-    'astounding',
-  ];
-
-  // Choose a random adjective
-  const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-
-  // fetch the filename of the random image
-  const filename = files[random];
-
-  // Return the number, adjective, and filename
-  return { randomNum, adjective, filename };
-};
-
-const color = {
-  1: 'bg-comment-col-1 border-comment-col-1',
-  2: 'bg-comment-col-2 border-comment-col-2',
-  3: 'bg-comment-col-3 border-comment-col-3',
-  4: 'bg-comment-col-4 border-comment-col-4',
-  5: 'bg-comment-col-5 border-comment-col-5',
-};
+const cursoComments = [
+  {
+    id: 1,
+    comment: 'El curso es muy bueno, el profesor es muy bueno y explica muy bien',
+  },
+  {
+    id: 2,
+    comment:
+      'El profesor podría explicar un poco más, pero en general es muy bueno. En cuanto a la infraestructura, los computadores son muy lentos y no se puede trabajar bien.',
+  },
+  {
+    id: 3,
+    comment: 'Se podría mejorar el contenido, hay cosas que a día de hoy ya no se usan',
+  },
+  {
+    id: 4,
+    comment:
+      'En general el curso es muy bueno pero los proyectos no se pueden hacer en casa porque no hay suficientes recursos',
+  },
+  {
+    id: 5,
+    comment:
+      'El curso es muy bueno, el profesor es muy bueno y explica muy bien. El contenido es muy bueno, pero los recursos son muy malos',
+  },
+  {
+    id: 6,
+    comment:
+      'El curso es muy bueno, el profesor es muy bueno y explica muy bien. El contenido es muy bueno, pero los recursos son muy malos',
+  },
+  {
+    id: 7,
+    comment:
+      'El curso es muy bueno, el profesor es muy bueno y explica muy bien. El contenido es muy bueno, pero los recursos son muy malos',
+  },
+];
 
 const Curso = ({ params }) => {
   const { id } = params;
 
-  const { randomNum, adjective, filename } = getRandomPfp();
-  console.log(randomNum, adjective, filename);
-
   return (
     <div
       key={id}
-      className='w-full min-h-fit font-semibold h-[calc(100vh-80px)] mt-20 bg-red-200 flex flex-col items-center justify-center'
+      className='w-full min-h-fit overflow-hidden font-semibold mt-28 flex flex-col items-center justify-center'
     >
-      <div className='w-full h-fit max-w-7xl bg-blue-200 flex justify-between px-9'>
-        <div className='w-1/2 h-full min-h-[calc(100vh-80px)] bg-lime-300 flex flex-col justify-center'>
+      <div className='w-full h-full max-w-7xl flex justify-between px-9'>
+        <div className='w-1/2 h-full min-h-fit flex flex-col justify-center'>
           <div className='flex flex-col'>
             <h2 className='text-2xl text-chinese-blue'>IST 2356</h2>
             <h1 className='text-3xl'>Ingeniería 404</h1>
@@ -134,30 +103,19 @@ const Curso = ({ params }) => {
           </div>
           <div className='grid grid-cols-2 gap-y-6 mt-6'>
             {cursoStats.map((stat) => (
-              <Stat stat={stat}></Stat>
+              <Stat key={stat.id} stat={stat}></Stat>
             ))}
           </div>
         </div>
-        <div className='w-[45%] flex-col p-9 h-[80%] min-h-[500px] self-center rounded-lg bg-yellow-300 border-2 border-dashed border-chinese-blue flex items-center'>
-          <div className='w-fit mb-10'>
+        <div className='w-[45%] mb-16 p-4 flex-col overflow-y-auto gap-2 h-[600px] self-center rounded-lg border-2 border-dashed border-chinese-blue flex items-center'>
+          <div className='w-fit p-9'>
             <h1 className='text-2xl font-semibold px-2'>Comentarios Generales</h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
           </div>
-          <div className='h-fit flex bg-lime-100 w-full'>
-            <div className={` relative h-11 border-4 ${color[randomNum]} w-11 rounded-full`}>
-              <Image
-                src={`/commentIcons/${filename}`}
-                fill
-                className='object-contain z-0'
-                quality={100}
-                priority
-              ></Image>
-            </div>
-            <div className='font-bold text-base'>
-              <span className='capitalize ml-4'>{adjective}</span>
-              {` `}
-              <span className=''>{filename.substring(0, filename.length - 4)}</span>
-            </div>
+          <div className='px-4 gap-2 pb-9 w-full h-full flex flex-col overflow-y-auto'>
+            {cursoComments.map((comment) => (
+              <Comment key={comment.id} comment={comment}></Comment>
+            ))}
           </div>
         </div>
       </div>

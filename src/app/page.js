@@ -16,8 +16,8 @@ const inter = Inter({ subsets: ['latin'] });
 export default function Home() {
   const router = useRouter();
   return (
-    <main className='w-full h-full flex flex-col items-center'>
-      <div className='w-full mt-20 min-h-[500px] h-[calc(100vh-80px)] flex justify-center'>
+    <main className='w-full flex flex-col items-center'>
+      <div className='w-full mt-20 min-h-fit h-[calc(100vh-80px)] flex justify-center'>
         <div className='w-full h-full max-w-7xl p-9 flex md:flex-row flex-col-reverse'>
           {/** Izquierda */}
           <div className='w-full h-full flex flex-col justify-center md:text-left text-center'>
@@ -38,11 +38,12 @@ export default function Home() {
           <div className='w-full h-full  flex items-center justify-center'>
             <div className='w-1/2 h-full relative'>
               <Image
-                alt='blob'
+                alt='patron1'
                 src={pattern1}
                 fill
                 className='object-contain z-0'
                 quality={100}
+                sizes='100%'
                 priority
               />
             </div>
