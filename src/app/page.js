@@ -25,7 +25,7 @@ export default function Home() {
               ¡Bienvenido a <span className='font-bold text-chinese-blue'>QualiUN</span>!
             </span>
             <span className='md:text-2xl text-lg w-full mt-[17px]'>
-              Un portal para hacerle check a la
+              Un portal para hacerle check a la{' '}
               <span className='text-chinese-blue'>calidad académica</span> percibida por los mismos{' '}
               <span className='text-chinese-blue'>estudiantes</span> de la{' '}
               <span className='text-chinese-blue'>Universidad del Norte</span>.
