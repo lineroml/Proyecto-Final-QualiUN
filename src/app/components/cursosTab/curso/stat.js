@@ -8,7 +8,7 @@ import { Tooltip } from 'react-tooltip';
 
 const Stat = ({ stat }) => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col med-lg:items-start items-center'>
       <h1
         data-tooltip-content={stat.desc}
         data-tooltip-id='my-tooltip'
