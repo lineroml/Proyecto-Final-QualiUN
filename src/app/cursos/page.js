@@ -78,7 +78,7 @@ const index = ({ searchParams }) => {
     }
   };
   return (
-    <div className='w-full flex flex-col items-center h-[calc(100vh-80px)] min-h-fit mt-20'>
+    <div className='w-full flex flex-col items-center h-fit min-h-fit mt-20'>
       <div className='w-full md:h-full h-fit max-w-7xl p-9 flex md:flex-row flex-col-reverse'>
         <div className='md:w-3/5 w-full flex justify-center h-full flex-col'>
           <SearchBar
@@ -114,7 +114,7 @@ const index = ({ searchParams }) => {
             antPagina={antPagina}
           ></Paginacion>
         </div>
-        <div className='md:w-2/5 md:mb-0 mb-10 w-full px-9 h-full flex justify-center items-center'>
+        <div className='md:w-2/5 md:mb-0 mb-10 w-full px-9 flex justify-center items-center'>
           <img
             src='/ilustracion_cursos.svg'
             alt='ilustracion busqueda'
