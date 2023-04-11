@@ -1,10 +1,8 @@
 'use client';
 
 import SearchBar from '../components/SearchBar';
-import { useRouter } from 'next/navigation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import {useRouter} from 'next/navigation';
+import {useEffect, useState} from 'react';
 import AsignaturaTab from '../components/cursosTab/asignaturaTab';
 import Paginacion from '../components/cursosTab/paginacion';
 
@@ -35,10 +33,33 @@ const asignaturas = [
   },
 ];
 
-const index = () => {
+
+
+const index = ({ searchParams }) => {
+
   const router = useRouter();
+  const [search, setSearch] = useState(searchParams['filter'] || '');
   const [inicio, setInicio] = useState(0);
   const [salto, setSalto] = useState(3);
+  const [asignaturas, setAsignaturas] = useState([]);
+  // Loading
+  const [loading, setLoading] = useState(true);
+
+  const fetchAsignaturas = async (filter) => {
+    const response = await fetch('/api/courses?filter=' + filter);
+    return await response.json();
+  }
+
+    useEffect(() => {
+      if (searchParams) {
+        setSearch(searchParams['filter']);
+        setLoading(true);
+        fetchAsignaturas(searchParams['filter']).then((response) => {
+          setAsignaturas(response.courses);
+          setLoading(false);
+        });
+      }
+    }, [searchParams]);
 
   const cambioSalto = (nuevoSalto) => {
     setSalto(nuevoSalto);
@@ -60,14 +81,21 @@ const index = () => {
     <div className='w-full flex flex-col items-center h-[calc(100vh-80px)] min-h-fit mt-20'>
       <div className='w-full md:h-full h-fit max-w-7xl p-9 flex md:flex-row flex-col-reverse'>
         <div className='md:w-3/5 w-full flex justify-center h-full flex-col'>
-          <SearchBar onClick={() => router.push('/cursos')}></SearchBar>
+          <SearchBar
+              onClick={() => {
+                router.push(`/cursos?filter=${search}`)
+
+              }}
+              value={search}
+              setValue={(e) => setSearch(e.target.value)}
+          ></SearchBar>
           <div className='w-fit'>
             <h1 className='text-xl font-semibold mt-16 px-2'>Resultados de búsqueda</h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
             <span className='font-semibold'>4 resultados</span>
           </div>
           <div className='flex flex-col mt-10 gap-2 w-full h-fit'>
-            {asignaturas.slice(inicio, inicio + salto).map((asignatura) => (
+            {!loading && asignaturas.slice(inicio, inicio + salto).map((asignatura) => (
               <AsignaturaTab
                 key={asignatura.id}
                 idAsig={asignatura.id}

@@ -43,6 +43,8 @@ const cursoStats = [
   },
 ];
 
+
+
 const getRandomPfp = () => {
   const files = fs.readdirSync('public/commentIcons');
 
