@@ -6,34 +6,6 @@ import {useEffect, useState} from 'react';
 import AsignaturaTab from '../components/cursosTab/asignaturaTab';
 import Paginacion from '../components/cursosTab/paginacion';
 
-const asignaturas = [
-  {
-    id: 1,
-    nombre: 'Ingeniería 104',
-    codigo: 'IST 2356',
-    reviews: 50,
-  },
-  {
-    id: 2,
-    nombre: 'Ingeniería Astroaerospacial 204',
-    codigo: 'IST 2456',
-    reviews: 20,
-  },
-  {
-    id: 3,
-    nombre: 'Ingeniería 304',
-    codigo: 'IST 1156',
-    reviews: 102422,
-  },
-  {
-    id: 4,
-    nombre: 'Ingeniería 404',
-    codigo: 'IST 7756',
-    reviews: 50,
-  },
-];
-
-
 
 const index = ({ searchParams }) => {
 

@@ -18,7 +18,6 @@ export async function GET(request) {
         if (courseCode) {
             const courseCodeNumber = courseCode[0].match(/[0-9]+/)[0];
             const courseCodeLetters = courseCode[0].match(/[a-zA-Z]+/)[0].toUpperCase();
-            console.log(courseCodeNumber, courseCodeLetters)
             rawCourses = await pb.collection('courses').getFullList({
                 filter: `course_number = '${courseCodeNumber}' && course_code = '${courseCodeLetters}'`,
                 expand: 'reviews(course)'
@@ -30,7 +29,6 @@ export async function GET(request) {
             })
 
         }
-        console.log(rawCourses)
         const courses = rawCourses.map(course => {
             return {
                 id: course.id,

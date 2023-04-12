@@ -1,6 +1,7 @@
 import CustomButton from '@/app/components/CustomButton';
 import Stat from '@/app/components/cursosTab/curso/stat';
 import Comment from '@/app/components/cursosTab/curso/Comment';
+import PocketBase from "pocketbase";
 
 const cursoStats = [
   {
@@ -78,50 +79,82 @@ const cursoComments = [
   },
 ];
 
-const Curso = ({ params }) => {
-  const { id } = params;
+// Fetch course data
+const getCourse = async (id) => {
+    const pb = new PocketBase('https://qualiun.pockethost.io/');
+
+    const courseQuery = await pb.collection('courses').getOne(id,
+        {
+            expand: 'reviews(course).answers, department'
+        }
+    )
+
+    const attributeQuery = await pb.collection('quality_categories').getFullList({
+      filter: "active=True"
+    })
+
+    const reviews = courseQuery.expand['reviews(course)']
+
+    console.log(reviews.expand)
+
+    return {
+        course: {
+          id: courseQuery.id,
+          name: courseQuery.name,
+          department: courseQuery.expand.department.name,
+          code: courseQuery.course_code + " " + courseQuery.course_number,
+        },
+    }
+};
+
+const Curso = async ({params}) => {
+  const {id} = params;
+
+  const courseInfo = await getCourse(id).then((res) => res.course);
 
   return (
-    <div
-      key={id}
-      className='w-full min-h-fit overflow-hidden font-semibold mt-28 flex flex-col items-center justify-center'
-    >
-      <div className='w-full h-full max-w-7xl flex med-lg:flex-row flex-col justify-between px-9'>
-        <div className='med-lg:w-1/2 w-full med-lg:items-start items-center h-full min-h-fit flex flex-col justify-center'>
-          <div className='flex flex-col med-lg:items-start items-center'>
-            <h2 className='text-2xl text-chinese-blue'>IST 2356</h2>
-            <h1 className='text-3xl'>Ingeniería 404</h1>
+      <div
+          key={id}
+          className='w-full min-h-fit overflow-hidden font-semibold mt-28 flex flex-col items-center justify-center'
+      >
+        <div className='w-full h-full max-w-7xl flex med-lg:flex-row flex-col justify-between px-9'>
+          <div
+              className='med-lg:w-1/2 w-full med-lg:items-start items-center h-full min-h-fit flex flex-col justify-center'>
+            <div className='flex flex-col med-lg:items-start items-center'>
+              <h2 className='text-2xl text-chinese-blue'>{courseInfo.code}</h2>
+              <h1 className='text-3xl'>{courseInfo.name}</h1>
+            </div>
+            <div className='flex flex-col my-8 med-lg:items-start items-center'>
+              <h3 className='text-2xl'>Departamento</h3>
+              <h2 className='text-3xl md-lg:text-start text-center text-chinese-blue'>
+                {courseInfo.department}
+              </h2>
+            </div>
+            <CustomButton type={1} text='Descargar Reporte' icon='download'></CustomButton>
+            <div className='w-fit'>
+              <h1 className='text-2xl font-semibold mt-16 px-2'>Estadísticas</h1>
+              <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
+            </div>
+            <div className='grid med-lg:mb-0 mb-16 sm:grid-cols-2 grid-cols-1 gap-y-6 mt-6'>
+              {cursoStats.map((stat) => (
+                  <Stat key={stat.id} stat={stat}></Stat>
+              ))}
+            </div>
           </div>
-          <div className='flex flex-col my-8 med-lg:items-start items-center'>
-            <h3 className='text-2xl'>Departamento</h3>
-            <h2 className='text-3xl md-lg:text-start text-center text-chinese-blue'>
-              Ingeniería de Sistemas y computación
-            </h2>
-          </div>
-          <CustomButton type={1} text='Descargar Reporte' icon='download'></CustomButton>
-          <div className='w-fit'>
-            <h1 className='text-2xl font-semibold mt-16 px-2'>Estadísticas</h1>
-            <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
-          </div>
-          <div className='grid med-lg:mb-0 mb-16 sm:grid-cols-2 grid-cols-1 gap-y-6 mt-6'>
-            {cursoStats.map((stat) => (
-              <Stat key={stat.id} stat={stat}></Stat>
-            ))}
-          </div>
-        </div>
-        <div className='med-lg:w-[45%] sm:w-[80%] mb-16 p-4 flex-col overflow-y-auto gap-2 h-[600px] self-center rounded-lg border-2 border-dashed border-chinese-blue flex items-center'>
-          <div className='w-fit p-9'>
-            <h1 className='sm:text-2xl text-xl font-semibold px-2'>Comentarios Generales</h1>
-            <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
-          </div>
-          <div className='px-4 gap-2 pb-9 w-full h-full flex flex-col overflow-y-auto'>
-            {cursoComments.map((comment) => (
-              <Comment key={comment.id} comment={comment}></Comment>
-            ))}
+          <div
+              className='med-lg:w-[45%] sm:w-[80%] mb-16 p-4 flex-col overflow-y-auto gap-2 h-[600px] self-center rounded-lg border-2 border-dashed border-chinese-blue flex items-center'>
+            <div className='w-fit p-9'>
+              <h1 className='sm:text-2xl text-xl font-semibold px-2'>Comentarios Generales</h1>
+              <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
+            </div>
+            <div className='px-4 gap-2 pb-9 w-full h-full flex flex-col overflow-y-auto'>
+              {cursoComments.map((comment) => (
+                  <Comment key={comment.id} comment={comment}></Comment>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
