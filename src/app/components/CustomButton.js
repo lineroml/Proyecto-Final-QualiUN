@@ -37,6 +37,8 @@ const CustomButton = ({
         <FontAwesomeIcon icon={faUser} className='mr-2'></FontAwesomeIcon>
       ) : icon === 'download' ? (
         <FontAwesomeIcon icon={faDownload} className='mr-2'></FontAwesomeIcon>
+      ) : icon === 'none' ? (
+        ''
       ) : (
         <FontAwesomeIcon icon={faHeartBroken} className='mr-2'></FontAwesomeIcon>
       )}

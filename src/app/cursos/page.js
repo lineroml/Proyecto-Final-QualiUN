@@ -1,15 +1,12 @@
 'use client';
 
 import SearchBar from '../components/SearchBar';
-import {useRouter} from 'next/navigation';
-import {useEffect, useState} from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import AsignaturaTab from '../components/cursosTab/asignaturaTab';
 import Paginacion from '../components/cursosTab/paginacion';
 
-
-
 const index = ({ searchParams }) => {
-
   const router = useRouter();
   const [search, setSearch] = useState(searchParams['filter'] || '');
   const [inicio, setInicio] = useState(0);
@@ -21,18 +18,18 @@ const index = ({ searchParams }) => {
   const fetchAsignaturas = async (filter) => {
     const response = await fetch('/api/courses?filter=' + filter);
     return await response.json();
-  }
+  };
 
-    useEffect(() => {
-      if (searchParams) {
-        setSearch(searchParams['filter']);
-        setLoading(true);
-        fetchAsignaturas(searchParams['filter']).then((response) => {
-          setAsignaturas(response.courses);
-          setLoading(false);
-        });
-      }
-    }, [searchParams]);
+  useEffect(() => {
+    if (searchParams) {
+      setSearch(searchParams['filter']);
+      setLoading(true);
+      fetchAsignaturas(searchParams['filter']).then((response) => {
+        setAsignaturas(response.courses);
+        setLoading(false);
+      });
+    }
+  }, [searchParams]);
 
   const cambioSalto = (nuevoSalto) => {
     setSalto(nuevoSalto);
@@ -55,12 +52,11 @@ const index = ({ searchParams }) => {
       <div className='w-full md:h-full h-fit max-w-7xl p-9 flex md:flex-row flex-col-reverse'>
         <div className='md:w-3/5 w-full flex justify-center h-full flex-col'>
           <SearchBar
-              onClick={() => {
-                router.push(`/cursos?filter=${search}`)
-
-              }}
-              value={search}
-              setValue={(e) => setSearch(e.target.value)}
+            onClick={() => {
+              router.push(`/cursos?filter=${search}`);
+            }}
+            value={search}
+            setValue={(e) => setSearch(e.target.value)}
           ></SearchBar>
           <div className='w-fit'>
             <h1 className='text-xl font-semibold mt-16 px-2'>Resultados de búsqueda</h1>
@@ -68,15 +64,18 @@ const index = ({ searchParams }) => {
             <span className='font-semibold'>{!loading && `${asignaturas.length} resultados`}</span>
           </div>
           <div className='flex flex-col mt-10 gap-2 w-full h-fit'>
-            {!loading && asignaturas.slice(inicio, inicio + salto).map((asignatura) => (
-              <AsignaturaTab
-                key={asignatura.id}
-                idAsig={asignatura.id}
-                codigo={asignatura.codigo}
-                nombre={asignatura.nombre}
-                reviews={asignatura.reviews}
-              />
-            ))}
+            {!loading &&
+              asignaturas
+                .slice(inicio, inicio + salto)
+                .map((asignatura) => (
+                  <AsignaturaTab
+                    key={asignatura.id}
+                    idAsig={asignatura.id}
+                    codigo={asignatura.codigo}
+                    nombre={asignatura.nombre}
+                    reviews={asignatura.reviews}
+                  />
+                ))}
           </div>
           <Paginacion
             inicio={inicio}

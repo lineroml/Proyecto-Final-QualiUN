@@ -21,7 +21,7 @@ const Header = () => {
         <CustomButton
           type={1}
           textS={2}
-          text={false ? 'Log Out' : 'Log In'}
+          text={'Log In'}
           action={() => {
             router.push(false ? '/' : '/login');
           }}
