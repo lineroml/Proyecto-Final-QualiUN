@@ -1,11 +1,9 @@
 'use client';
-import { useAuth } from '@/hooks/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import CustomButton from './CustomButton';
 
 const Header = () => {
-  const { user } = useAuth();
   const router = useRouter();
   return (
     <header
@@ -17,15 +15,15 @@ const Header = () => {
         Quali<span className='text-chinese-blue'>UN</span>{' '}
       </Link>
       <div className='flex gap-11 h-full items-center'>
-        <Link href='/' className='text-lg'>
+        <Link href='/faq' className='text-lg'>
           FAQ
         </Link>
         <CustomButton
           type={1}
           textS={2}
-          text={user ? 'Log Out' : 'Log In'}
+          text={false ? 'Log Out' : 'Log In'}
           action={() => {
-            router.push(user ? '/' : '/login');
+            router.push(false ? '/' : '/login');
           }}
         ></CustomButton>
       </div>
