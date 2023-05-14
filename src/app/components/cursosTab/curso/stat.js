@@ -1,7 +1,7 @@
 'use client';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faStar, faStarHalfStroke, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+import {faStar, faStarHalfStroke} from '@fortawesome/free-solid-svg-icons';
 import {faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons';
 import 'react-tooltip/dist/react-tooltip.css';
 import {Tooltip} from 'react-tooltip';
