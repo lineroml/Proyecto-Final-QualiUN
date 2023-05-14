@@ -57,7 +57,7 @@ const index = () => {
     }
   };
   return (
-    <div className='w-full flex flex-col items-center h-fit min-h-fit mt-20'>
+    <div className='w-full flex flex-col items-center justify-center h-fit min-h-screen pt-20'>
       <div className='w-full md:h-full h-fit max-w-7xl p-9 flex md:flex-row flex-col-reverse'>
         <div className='md:w-3/5 w-full flex justify-center h-full flex-col'>
           <SearchBar onClick={() => router.push('/cursos')}></SearchBar>

@@ -13,7 +13,7 @@ const Header = () => {
         Quali<span className='text-chinese-blue'>UN</span>{' '}
       </Link>
       <div className='flex gap-11 h-full items-center'>
-        <Link href='###' className='text-lg'>
+        <Link href='/faq' className='text-lg'>
           FAQ
         </Link>
         <CustomButton type={1} textS={2}></CustomButton>

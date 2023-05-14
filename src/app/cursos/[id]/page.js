@@ -84,7 +84,7 @@ const Curso = ({ params }) => {
   return (
     <div
       key={id}
-      className='w-full min-h-fit overflow-hidden font-semibold mt-28 flex flex-col items-center justify-center'
+      className='w-full min-h-screen overflow-hidden h-fit font-semibold pt-28 flex flex-col items-center justify-center'
     >
       <div className='w-full h-full max-w-7xl flex med-lg:flex-row flex-col justify-between px-9'>
         <div className='med-lg:w-1/2 w-full med-lg:items-start items-center h-full min-h-fit flex flex-col justify-center'>
@@ -94,7 +94,7 @@ const Curso = ({ params }) => {
           </div>
           <div className='flex flex-col my-8 med-lg:items-start items-center'>
             <h3 className='text-2xl'>Departamento</h3>
-            <h2 className='text-3xl md-lg:text-start text-center text-chinese-blue'>
+            <h2 className='text-3xl me+d-lg:text-start text-center text-chinese-blue'>
               Ingeniería de Sistemas y computación
             </h2>
           </div>
