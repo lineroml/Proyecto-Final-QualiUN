@@ -8,6 +8,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import pattern1 from '../../public/pattern_1.png';
 import { useRouter } from 'next/navigation';
 import SearchBar from './components/SearchBar';
+import { useState } from 'react';
 
 config.autoAddCss = false;
 
@@ -15,6 +16,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const router = useRouter();
+  const [search, setSearch] = useState('');
   return (
     <main className='w-full flex flex-col items-center'>
       <div className='w-full mt-20 min-h-fit h-[calc(100vh-80px)] flex justify-center'>
@@ -31,7 +33,10 @@ export default function Home() {
               <span className='text-chinese-blue'>Universidad del Norte</span>.
             </span>
 
-            <SearchBar onClick={() => router.push('/cursos')}></SearchBar>
+            <SearchBar
+                onClick={() => router.push(`/cursos?filter=${search}`)}
+                value={search}
+                setValue={(e) => setSearch(e.target.value)}></SearchBar>
           </div>
 
           {/** Derecha */}

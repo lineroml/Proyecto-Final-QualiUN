@@ -3,7 +3,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const SearchBar = ({ onClick }) => {
+const SearchBar = ({ onClick, value, setValue }) => {
   return (
     <>
       <label htmlFor='search' className='mt-4 med-sm:text-2xl md:text-xl text-lg font-semibold'>
@@ -11,6 +11,8 @@ const SearchBar = ({ onClick }) => {
       </label>
       <div className='flex h-fit items-center mt-2'>
         <input
+          value={value}
+          onChange={setValue}
           id='search'
           type='text'
           placeholder='Ingresa el nombre o el código de la asignatura'
