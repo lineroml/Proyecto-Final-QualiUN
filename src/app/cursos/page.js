@@ -7,6 +7,7 @@ import AsignaturaTab from '../components/cursosTab/asignaturaTab';
 import Paginacion from '../components/cursosTab/paginacion';
 
 
+
 const index = ({ searchParams }) => {
 
   const router = useRouter();
@@ -64,7 +65,7 @@ const index = ({ searchParams }) => {
           <div className='w-fit'>
             <h1 className='text-xl font-semibold mt-16 px-2'>Resultados de búsqueda</h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
-            <span className='font-semibold'>4 resultados</span>
+            <span className='font-semibold'>{!loading && `${asignaturas.length} resultados`}</span>
           </div>
           <div className='flex flex-col mt-10 gap-2 w-full h-fit'>
             {!loading && asignaturas.slice(inicio, inicio + salto).map((asignatura) => (
