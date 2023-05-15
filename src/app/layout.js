@@ -2,6 +2,7 @@ import './globals.css';
 import { Quicksand } from 'next/font/google';
 import Header from './components/Header';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import {NextAuthProvider} from '@/providers/auth-provider';
 
 const workSans = Quicksand({ variable: '--font-quicksand', subsets: ['latin'] });
 export default function RootLayout({ children }) {
@@ -15,12 +16,14 @@ export default function RootLayout({ children }) {
         <title>QualiUN</title>
       </head>
 
-      <body
-        className={`${workSans.variable} font-sans tracking-tighter w-full flex flex-col justify-center items-center`}
-      >
-        <Header />
-        {children}
-      </body>
-    </html>
-  );
+        <body
+            className={`${workSans.variable} font-sans tracking-tighter w-full flex flex-col justify-center items-center`}
+        >
+        <NextAuthProvider>
+            <Header/>
+            {children}
+        </NextAuthProvider>
+        </body>
+        </html>
+    );
 }
