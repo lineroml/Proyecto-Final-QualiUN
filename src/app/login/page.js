@@ -16,6 +16,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // Call NextAuth React Hook to get session details
     const {data: session} = useSession();
@@ -25,15 +26,26 @@ const Login = () => {
     }
 
     const handleLogin = async () => {
+        console.log(email, password);
         if (email && password) {
-            const response = await signIn('credentials', {
+            setLoading(true);
+            signIn('password', {
                 email,
                 password,
                 redirect: false,
-            });
-            if (response.error) {
-                setError('Credenciales incorrectas, por favor intente de nuevo');
-            }
+            }).then(
+                (res) => {
+                    if (!res.error) {
+                        setLoading(false);
+                        setError('');
+                        router.push('/');
+                    } else {
+                        setError(res.error);
+                        setLoading(false);
+                    }
+                }
+            );
+
         }
     };
 
@@ -104,10 +116,15 @@ const Login = () => {
                         width={'w-full max-w-[200px] min-w-fit mt-8'}
                         type={1}
                         textS={2}
-                        text={'Iniciar sesión'}
-                        action={() => {
-                            async () => await handleLogin();
+                        text={loading ? (
+                            'Cargando...'
+                        ) : (
+                            'Iniciar sesión'
+                        )}
+                        action={async () => {
+                            await handleLogin();
                         }}
+                        disabled={loading}
                         icon="none"
                     ></CustomButton>
                     {/** Insertar variable que contenga error */}
@@ -116,6 +133,11 @@ const Login = () => {
                             id="error-msg"
                             className="text-sm text-red-500 mt-2 font-bold w-full max-w-[300px] text-center"
                         >
+                            {
+                                error &&
+                                'Ups! Credenciales incorrectas.'
+                            }
+                            <br/>
                             {
                                 error &&
                                 'Si no puedes iniciar sesión, por favor comunícate con el administrador del sistema.'

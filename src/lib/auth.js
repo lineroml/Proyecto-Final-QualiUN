@@ -21,7 +21,7 @@ export const authOptions = {
             },
             async authorize(credentials) {
                 // check if email is an actual email
-                if (!credentials.email.includes('@')) {
+                if (credentials.email.includes('@')) {
                     // if it is email, then it should be @uninorte.edu.co
                     if (!credentials.email.endsWith('@uninorte.edu.co'))
                         return null;
