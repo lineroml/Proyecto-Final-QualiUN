@@ -4,9 +4,13 @@ export const authOptions = {
     session: {
         strategy: 'jwt',
     },
+    pages: {
+        signIn: '/login',
+    },
     providers: [
         CredentialsProvider({
             name: 'Sign in',
+            id: 'password',
             credentials: {
                 email: {
                     label: 'Email',
