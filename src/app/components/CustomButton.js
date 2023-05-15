@@ -1,7 +1,7 @@
 'use client';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser, faDownload, faHeartBroken} from '@fortawesome/free-solid-svg-icons';
+import {faUser, faDownload, faHeartBroken, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const styles = {
     1: 'bg-chinese-blue text-white hover:bg-pewter-blue',
@@ -41,7 +41,9 @@ const CustomButton = ({
                 <FontAwesomeIcon icon={faDownload} className="mr-2"></FontAwesomeIcon>
             ) : icon === 'none' ? (
                 ''
-            ) : (
+            ) : icon === 'arrow-left' ? (
+        <FontAwesomeIcon icon={faArrowLeft} className='mr-2'></FontAwesomeIcon>
+      ) : (
                 <FontAwesomeIcon icon={faHeartBroken} className="mr-2"></FontAwesomeIcon>
             )}
             {text}

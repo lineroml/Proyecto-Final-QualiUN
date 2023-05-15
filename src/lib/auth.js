@@ -20,6 +20,17 @@ export const authOptions = {
                 password: {label: 'Password', type: 'password'},
             },
             async authorize(credentials) {
+                // check if email is an actual email
+                if (!credentials.email.includes('@')) {
+                    // if it is email, then it should be @uninorte.edu.co
+                    if (!credentials.email.endsWith('@uninorte.edu.co'))
+                        return null;
+
+                } else {
+                    credentials.email = credentials.email + '@uninorte.edu.co';
+                }
+
+
                 // Call pocketbase API
                 const res = await fetch('https://qualiun.pockethost.io/api/collections/users/auth-with-password', {
                     method: 'POST',

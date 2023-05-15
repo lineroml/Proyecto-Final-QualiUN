@@ -3,16 +3,19 @@
 import Image from 'next/image';
 import pattern1 from '../../../public/pattern_1.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '../components/CustomButton';
 import {signIn, useSession} from 'next-auth/react';
 import {useRouter} from 'next/navigation';
 import {useState} from 'react';
+import Link from 'next/link';
 
 const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     // Call NextAuth React Hook to get session details
     const {data: session} = useSession();
@@ -21,15 +24,18 @@ const Login = () => {
         router.push('/');
     }
 
-    // Use nextauth to authenticate user
     const handleLogin = async () => {
-        await signIn('password', {
-            email,
-            password,
-            callbackUrl: '/'
-        });
+        if (email && password) {
+            const response = await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+            });
+            if (response.error) {
+                setError('Credenciales incorrectas, por favor intente de nuevo');
+            }
+        }
     };
-
 
     return (
         <div className="w-full flex flex-col items-center justify-center h-fit min-h-screen pt-20">
@@ -51,21 +57,17 @@ const Login = () => {
                         <div className="w-full h-1 bg-chinese-blue rounded-full"></div>
                     </div>
                     <div className="flex h-fit w-[90%] max-w-[300px] flex-col mt-2">
-                        <label htmlFor="search" className="mt-4 text-lg font-semibold">
+                        <label htmlFor="user" className="mt-4 text-lg font-semibold">
                             Usuario:
                         </label>
                         <div className="flex h-fit items-center mt-1">
                             <input
-                                id="email"
+                                id="user"
                                 type="text"
                                 placeholder="Ingresa tu usuario..."
                                 className="pl-4 pr-10 py-2 w-full rounded-lg border-[3px] border-eerie-black/40 text-base focus:border-[3px] focus:border-chinese-blue focus:outline-none"
-                                value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <button type="submit" className="-ml-8 text-chinese-blue hover:text-dust-storm">
-                                <FontAwesomeIcon icon={faSearch} className=" text-xl"/>
-                            </button>
                         </div>
                         <span className="text-sm font-bold mt-1">
               <span className="text-red-700">Nota:</span> Tu usuario es todo lo que está antes de
@@ -73,20 +75,28 @@ const Login = () => {
             </span>
                     </div>
                     <div className="flex h-fit w-[90%] max-w-[300px] flex-col">
-                        <label htmlFor="search" className="mt-4 text-lg font-semibold">
+                        <label htmlFor="password" className="mt-4 text-lg font-semibold">
                             Contraseña:
                         </label>
                         <div className="flex h-fit items-center mt-1">
                             <input
-                                id="search"
-                                type="password"
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
                                 placeholder="Ingresa tu contraseña..."
                                 className="pl-4 pr-10 py-2 w-full rounded-lg border-[3px] border-eerie-black/40 text-base focus:border-[3px] focus:border-chinese-blue focus:outline-none"
-                                value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <button type="submit" className="-ml-8 text-chinese-blue hover:text-dust-storm">
-                                <FontAwesomeIcon icon={faSearch} className=" text-xl"/>
+
+                            <button
+                                type="submit"
+                                className="-ml-[36px] text-chinese-blue hover:text-dust-storm"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? (
+                                    <FontAwesomeIcon icon={faEyeSlash} className=" text-base"/>
+                                ) : (
+                                    <FontAwesomeIcon icon={faEye} className=" text-base"/>
+                                )}
                             </button>
                         </div>
                     </div>
@@ -95,9 +105,26 @@ const Login = () => {
                         type={1}
                         textS={2}
                         text={'Iniciar sesión'}
-                        action={async () => await handleLogin()}
+                        action={() => {
+                            async () => await handleLogin();
+                        }}
                         icon="none"
                     ></CustomButton>
+                    {/** Insertar variable que contenga error */}
+                    {!!error && (
+                        <span
+                            id="error-msg"
+                            className="text-sm text-red-500 mt-2 font-bold w-full max-w-[300px] text-center"
+                        >
+                            {
+                                error &&
+                                'Si no puedes iniciar sesión, por favor comunícate con el administrador del sistema.'
+                            }
+            </span>
+                    )}
+                    <Link href="/signup" className="text-sm mt-2 font-bold w-full max-w-[300px] text-center">
+                        ¿No tienes cuenta de QualiUN?
+                    </Link>
                 </div>
                 <div className="w-[226px] h-[339px] md:block hidden relative">
                     <Image
@@ -114,5 +141,6 @@ const Login = () => {
         </div>
     );
 };
+
 
 export default Login;

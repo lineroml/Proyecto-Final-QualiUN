@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import pattern1 from '../../public/pattern_1.png';
 import { useRouter } from 'next/navigation';
 import SearchBar from './components/SearchBar';
