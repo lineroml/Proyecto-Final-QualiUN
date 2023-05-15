@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const page = () => {
   const [shown, setShown] = useState(0);
@@ -109,6 +110,52 @@ const page = () => {
               se encuentre en SPAM, puedes comunicarte al correo “lineroml@uninorte.edu.co” (dueña
               del proyecto de grado 👑). Luego de que tu cuenta haya sido activada ya tendrás acceso
               total a QualiUN.
+            </h4>
+          </div>
+          <div className='h-0 border border-dashed border-chinese-blue my-6'></div>
+          <div className='w-full'>
+            <h3 onClick={() => handleShown(6)} className='w-full text-xl font-bold cursor-pointer'>
+              Respecto a creación de cuentas <span className='text-chinese-blue'>QualiUN</span> y
+              contraseña
+            </h3>
+            <h4
+              className={`${
+                shown == 6 ? 'block' : 'hidden'
+              } mt-2 text-base font-medium text-justify`}
+            >
+              Requisitos para pertenecer a QualiUN:
+              <ul className='list-disc px-6'>
+                <li>Ser de la Universidad del Norte y contar con un correo @uninorte.edu.co</li>
+              </ul>
+              Pasos para crear una cuenta:
+              <ol className='pl-6 list-decimal'>
+                <li>
+                  Ingresa a{' '}
+                  <Link target='_blank' href='/signup' className='text-chinese-blue font-semibold'>
+                    crear cuenta
+                  </Link>
+                </li>
+                <li>
+                  Ingresa el correo y la contraseña a usar.
+                  <ul className='pl-9 list-disc'>
+                    <li>El correo debe ser UniNorte.</li>
+                    <li>
+                      La contraseña NO tiene que ser la misma que la de tus cuentas oficiales UN.
+                    </li>
+                    <li>
+                      La contraseña debe tener mínimo 8 caracteres de los cuales 1 debe ser una
+                      letra y 1 debe ser un número.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Espera el correo de activación de tu cuenta. En caso de no encontrarlo revisa tu
+                  carpeta de SPAM. Si luego de revisar la carpeta de SPAM este sigue sin ser
+                  encontrado, contáctanos a través de correo electrónico “lineroml@uninorte.edu.co”
+                  (dueña del proyecto de grado 👑).
+                </li>
+                <li>Navega y disfruta de QualiUN.</li>
+              </ol>
             </h4>
           </div>
         </div>
