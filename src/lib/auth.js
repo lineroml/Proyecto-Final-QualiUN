@@ -29,11 +29,37 @@ export const authOptions = {
                 });
                 let json = await res.json();
                 if (res.status === 200) {
-                    return json;
+                    return {
+                        id: json.record.id,
+                        username: json.record.username,
+                        email: json.record.email,
+                        token: json.token,
+                    };
                 } else {
                     return null;
                 }
             },
         }),
     ],
+    callbacks: {
+        async jwt({user, token}) {
+            if (user)
+                return {
+                    ...token,
+                    id: user.id,
+                    pbtoken: user.token,
+                };
+            return token;
+        },
+        async session({session, token}) {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.id,
+                },
+                pbtoken: token.pbtoken
+            };
+        }
+    }
 };
