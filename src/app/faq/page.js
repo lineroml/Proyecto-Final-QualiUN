@@ -19,7 +19,7 @@ const page = () => {
         <div className='w-[336px] h-[216px] relative'>
           <img src='/faq/faq_illustration.svg' alt='faqsvg' />
         </div>
-        <div className='w-fit mb-16'>
+        <div className='w-fit mb-16 text-center'>
           <h1 className='text-2xl font-semibold mt-2 px-2'>
             <span className='text-chinese-blue'>FAQ</span> - Preguntas frecuentes
           </h1>
