@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-import { NextResponse } from "next/server";
+import {NextResponse} from 'next/server';
 
 const pb = new PocketBase('https://qualiun.pockethost.io/');
 
@@ -21,21 +21,21 @@ export async function GET(request) {
             rawCourses = await pb.collection('courses').getFullList({
                 filter: `course_number = '${courseCodeNumber}' && course_code = '${courseCodeLetters}'`,
                 expand: 'reviews(course)'
-            })
+            });
         } else {
             rawCourses = await pb.collection('courses').getFullList({
                 filter: `name ~ '${filter}'`,
                 expand: 'reviews(course)'
-            })
+            });
 
         }
         const courses = rawCourses.map(course => {
             return {
                 id: course.id,
                 nombre: course.name,
-                codigo: course.course_code + " " + course.course_number,
+                codigo: course.course_code + ' ' + course.course_number,
                 reviews: course.expand['reviews(course)']?.length || 0,
-            }
+            };
         });
         return NextResponse.json({
             courses,

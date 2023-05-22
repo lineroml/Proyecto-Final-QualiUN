@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import CustomButton from './CustomButton';
-import {useSession, signIn} from 'next-auth/react';
+import {useSession} from 'next-auth/react';
 
 
 const Header = () => {
@@ -29,7 +29,7 @@ const Header = () => {
                         if (session) {
                             router.push('/api/auth/signout');
                         } else {
-                            await signIn();
+                            router.push('/login');
                         }
                     }}
                     disabled={status === 'loading'}

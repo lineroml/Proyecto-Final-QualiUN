@@ -41,9 +41,14 @@ export const authOptions = {
                         identity: credentials.email,
                         password: credentials.password,
                     }),
+                    cache: 'no-cache',
                 });
                 let json = await res.json();
                 if (res.status === 200) {
+                    console.log(json.record);
+                    if (!json.record.verified)
+                        return null;
+
                     return {
                         id: json.record.id,
                         username: json.record.username,

@@ -35,6 +35,7 @@ const Login = () => {
                 redirect: false,
             }).then(
                 (res) => {
+                    console.log(res);
                     if (!res.error) {
                         setLoading(false);
                         setError('');
