@@ -1,10 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../../components/CustomButton';
 import { useState } from 'react';
 
-const page = () => {
+const page = ({ params }) => {
+  const id = params.courseid;
   const router = useRouter();
   return (
     <div className='w-full flex flex-col items-center justify-center h-fit min-h-screen pt-20'>
@@ -37,7 +38,7 @@ const page = () => {
           <CustomButton
             icon='play'
             text='Empezar Encuesta'
-            action={() => router.push('/evaluacion/desarrollo')}
+            action={() => router.push(`/evaluacion/${id}/desarrollo`)}
           ></CustomButton>
         </div>
       </div>
