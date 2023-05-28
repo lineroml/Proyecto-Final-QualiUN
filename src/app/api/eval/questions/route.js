@@ -18,7 +18,7 @@ const processType = (type) => {
 
 export async function GET(request) {
   const questions = await pb.collection('quality_questions').getFullList({
-    filter: `active = true`,
+    filter: 'active = true',
   });
   console.log(questions);
   const questionsList = questions.map((question) => {

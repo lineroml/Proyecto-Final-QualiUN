@@ -62,6 +62,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
         if (pregunta.tipo === '1-5') {
           return (
             <div
+              key={index}
               className={`${
                 answeredQuestions[index] == true ? 'bg-lime-100' : 'bg-none'
               } w-full my-2 max-w-5xl p-2 border-2 border-chinese-blue rounded-lg border-dashed`}
@@ -126,6 +127,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
         } else if (pregunta.tipo === 'multiple') {
           return (
             <div
+              key={index}
               className={`${answeredQuestions[index] == true ? 'bg-lime-100' : 'bg-none'}
            w-full my-2 max-w-5xl p-2 border-2 border-chinese-blue rounded-lg border-dashed`}
             >

@@ -31,7 +31,7 @@ const page = async ({ params }) => {
     return redirect('/login');
   }
   const questions = await pb.collection('quality_questions').getFullList({
-    filter: `active = true`,
+    filter: 'active = true',
   });
 
   const questionList = questions.map((question) => {

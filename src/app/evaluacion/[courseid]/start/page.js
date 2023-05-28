@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import CustomButton from '../../../components/CustomButton';
 import { useState } from 'react';
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const id = params.courseid;
   const router = useRouter();
   return (
@@ -46,4 +46,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
