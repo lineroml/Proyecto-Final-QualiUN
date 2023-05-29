@@ -68,7 +68,6 @@ const studentHasReviewed = async (session, courseId) => {
 
 const Curso = async ({ params }) => {
   const session = await getServerSession(authOptions);
-  console.log(session);
   if (!session) {
     // redirect to login
     redirect('/login');
@@ -80,6 +79,7 @@ const Curso = async ({ params }) => {
   const course = await getCourse(id).then((res) => res);
   const courseInfo = course.course;
   const reviews = course.reviews;
+  console.log(reviews);
   return (
     <div
       key={id}
@@ -125,7 +125,7 @@ const Curso = async ({ params }) => {
           <div className='px-4 gap-2 pb-9 w-full h-full flex flex-col overflow-y-auto'>
             {reviews.filter((review) => review.comment !== '').length > 0 ? (
               reviews.map(
-                (review) => review.comment && <Comment key={comment.id} comment={comment}></Comment>
+                (review) => review.comment && <Comment key={review.id} comment={review}></Comment>
               )
             ) : (
               <div className='w-full h-full flex flex-col items-center justify-center'>
