@@ -129,8 +129,9 @@ const Page = () => {
             }}
             icon='none'
             disabled={loading}
+            loading={loading}
           ></CustomButton>
-          {false && (
+          {!!error && (
             <span
               id='error-msg'
               className='text-sm text-red-500 mt-2 font-bold w-full max-w-[300px] text-center'

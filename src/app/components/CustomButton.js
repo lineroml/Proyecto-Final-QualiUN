@@ -1,6 +1,7 @@
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ColorRing } from 'react-loader-spinner';
 import {
   faUser,
   faDownload,
@@ -30,6 +31,7 @@ const CustomButton = ({
   text = 'Log In',
   icon = 'user',
   disabled = false,
+  loading = false,
   action = () => {
     console.log('Button clicked');
   },
@@ -38,9 +40,9 @@ const CustomButton = ({
   return (
     <button
       onClick={action}
-      className={`${styles[type]} ${textSize[textS]} ${
-        width ?? 'w-fit'
-      } px-4 py-2 rounded-md font-semibold`}
+      className={`${styles[type]} ${textSize[textS]} ${width ?? 'w-fit'}
+      ${disabled ? 'cursor-not-allowed bg-pewter-blue' : 'cursor-pointer'}
+      px-4 py-2 rounded-md font-semibold text-center items-center justify-center flex`}
       disabled={disabled}
     >
       {' '}
@@ -57,7 +59,15 @@ const CustomButton = ({
       ) : (
         <FontAwesomeIcon icon={faHeartBroken} className='mr-2'></FontAwesomeIcon>
       )}
-      {text}
+      {loading ? (
+        <ColorRing
+          colors={['#315098', '#FBD0E0', '#AFBDB0', '#1E1E1E', '#8CA8BE']}
+          height={30}
+          width={30}
+        />
+      ) : (
+        text
+      )}
     </button>
   );
 };

@@ -1,4 +1,3 @@
-import CustomButton from '@/app/components/CustomButton';
 import Stat from '@/app/components/cursosTab/curso/stat';
 import Comment from '@/app/components/cursosTab/curso/Comment';
 import PocketBase from 'pocketbase';
