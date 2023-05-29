@@ -13,7 +13,7 @@ const Stat = ({ stat }) => {
     if (hasReviews) {
       return desc;
     } else {
-      return desc + '\n(No hay reseñas en esta categoría para el curso aún)';
+      return desc + ' (No hay reseñas en esta categoría para el curso aún)';
     }
   };
   return (
@@ -27,8 +27,9 @@ const Stat = ({ stat }) => {
       </h1>
       <div className='flex flex-row'>
         <Tooltip
-          className='text-sm drop-shadow-sm border border-black/10 bg-white text-black'
+          className='max-w-lg text-sm drop-shadow-sm border border-black/10 bg-white text-black'
           id='my-tooltip'
+          multiline={true}
         />
 
         {[...Array(Math.floor(stat.value))].map((_, i) => (

@@ -74,7 +74,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
         router.push(`/cursos/${courseId}`);
       } else {
         alert('Error al enviar respuestas');
-        router.push(`/cursos/${courseId}`);
+        //router.push(`/cursos/${courseId}`);
       }
     });
   };

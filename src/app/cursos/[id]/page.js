@@ -70,6 +70,7 @@ const Curso = async ({ params }) => {
   const session = await getServerSession(authOptions);
   if (!session) {
     // redirect to login
+    console.log('no session');
     redirect('/login');
   }
   const { id } = params;

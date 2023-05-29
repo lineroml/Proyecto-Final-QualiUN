@@ -6,7 +6,12 @@ const pb = new PocketBase('https://qualiun.pockethost.io/');
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
+  console.log(
+    '==================================== START API CALL ===================================='
+  );
+
   const body = await request.json();
+  console.log('body --- ', body);
 
   const { answers, courseId, userId, comment } = body;
 
@@ -38,9 +43,13 @@ export async function POST(request) {
     answerResponses.push(json);
   }
 
+  console.log('answerResponses --- ', answerResponses);
+
   const newRecord = await pb.collection('reviews').update(review.id, {
     answers: answerResponses.map((answer) => answer.id),
   });
+
+  console.log('newRecord --- ', newRecord);
 
   return NextResponse.json({ newRecord });
 }
