@@ -2,9 +2,13 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import CustomButton from './CustomButton';
+import { useSession } from 'next-auth/react';
+
+export const dynamic = 'force-dynamic';
 
 const Header = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
   return (
     <header
       className={
@@ -21,10 +25,17 @@ const Header = () => {
         <CustomButton
           type={1}
           textS={2}
-          text={'Log In'}
-          action={() => {
-            router.push(false ? '/' : '/login');
+          text={
+            status === 'authenticated' ? 'Log Out' : status === 'loading' ? 'Loading...' : 'Log In'
+          }
+          action={async () => {
+            if (session) {
+              router.push('/api/auth/signout');
+            } else {
+              router.push('/login');
+            }
           }}
+          disabled={status === 'loading'}
         ></CustomButton>
       </div>
     </header>

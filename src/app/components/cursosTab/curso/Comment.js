@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import fs from 'fs';
 
+export const dynamic = 'force-dynamic';
+
 const Comment = ({ comment }) => {
   const getRandomPfp = () => {
     const files = fs.readdirSync('public/commentIcons');
@@ -73,8 +75,7 @@ const Comment = ({ comment }) => {
       </div>
       <div className='w-full flex flex-col ml-2 bg-[#F2F2F2] px-3 py-1 rounded-md'>
         <div className='font-bold text-base w-full'>
-          <span className='capitalize'>{adjective}</span>
-          {` `}
+          <span className='capitalize'>{adjective}</span>{' '}
           <span>{filename.substring(0, filename.length - 4)}</span>
         </div>
         <div>

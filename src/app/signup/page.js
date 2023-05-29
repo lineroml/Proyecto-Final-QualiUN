@@ -8,9 +8,45 @@ import CustomButton from '../components/CustomButton';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async () => {
+    setLoading(true);
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      cache: 'no-cache',
+    })
+      .then(async (res) => {
+        const val = await res.json();
+        if (val && !val.error) {
+          setError('');
+          setLoading(false);
+          router.push('/account-activation');
+        } else {
+          setError(val.message);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setError('Algo ocurrió creando tu cuenta, por favor intenta mas tarde');
+        setLoading(false);
+      });
+  };
 
   return (
     <div className='w-full flex flex-col items-center justify-center h-fit min-h-screen pt-20'>
@@ -40,6 +76,8 @@ const page = () => {
                 type='text'
                 placeholder='Ingresa tu correo UN'
                 className='pl-4 pr-10 py-2 w-full rounded-lg border-[3px] border-eerie-black/40 text-base focus:border-[3px] focus:border-chinese-blue focus:outline-none'
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </div>
             <ul className='text-sm font-semibold list-disc px-6 mt-2'>
@@ -60,6 +98,8 @@ const page = () => {
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Ingresa tu contraseña'
                 className='pl-4 pr-10 py-2 w-full rounded-lg border-[3px] border-eerie-black/40 text-base focus:border-[3px] focus:border-chinese-blue focus:outline-none'
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
               <button
                 type='submit'
@@ -83,11 +123,12 @@ const page = () => {
             width={'w-full max-w-[200px] min-w-fit mt-8'}
             type={1}
             textS={2}
-            text={'Crear cuenta'}
-            action={() => {
-              router.push('/account-activation');
+            text={loading ? 'Cargando...' : 'Crear cuenta'}
+            action={async () => {
+              await handleSignup();
             }}
             icon='none'
+            disabled={loading}
           ></CustomButton>
           {false && (
             <span
@@ -117,4 +158,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

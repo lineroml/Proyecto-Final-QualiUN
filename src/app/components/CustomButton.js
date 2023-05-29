@@ -1,7 +1,13 @@
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faDownload, faHeartBroken, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  faDownload,
+  faHeartBroken,
+  faArrowLeft,
+  faPlay,
+} from '@fortawesome/free-solid-svg-icons';
 
 const styles = {
   1: 'bg-chinese-blue text-white hover:bg-pewter-blue',
@@ -15,15 +21,19 @@ const textSize = {
   4: 'text-sm',
 };
 
+export const dynamic = 'force-dynamic';
+
 const CustomButton = ({
   type = 1,
   textS = 1,
   width = null,
   text = 'Log In',
   icon = 'user',
+  disabled = false,
   action = () => {
     console.log('Button clicked');
   },
+  href = null,
 }) => {
   return (
     <button
@@ -31,6 +41,7 @@ const CustomButton = ({
       className={`${styles[type]} ${textSize[textS]} ${
         width ?? 'w-fit'
       } px-4 py-2 rounded-md font-semibold`}
+      disabled={disabled}
     >
       {' '}
       {icon === 'user' ? (
@@ -41,6 +52,8 @@ const CustomButton = ({
         ''
       ) : icon === 'arrow-left' ? (
         <FontAwesomeIcon icon={faArrowLeft} className='mr-2'></FontAwesomeIcon>
+      ) : icon === 'play' ? (
+        <FontAwesomeIcon icon={faPlay} className='mr-2'></FontAwesomeIcon>
       ) : (
         <FontAwesomeIcon icon={faHeartBroken} className='mr-2'></FontAwesomeIcon>
       )}

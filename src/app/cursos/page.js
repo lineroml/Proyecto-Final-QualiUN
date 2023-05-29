@@ -6,7 +6,9 @@ import { useEffect, useState } from 'react';
 import AsignaturaTab from '../components/cursosTab/asignaturaTab';
 import Paginacion from '../components/cursosTab/paginacion';
 
-const index = ({ searchParams }) => {
+export const dynamic = 'force-dynamic';
+
+const Index = ({ searchParams }) => {
   const router = useRouter();
   const [search, setSearch] = useState(searchParams['filter'] || '');
   const [inicio, setInicio] = useState(0);
@@ -98,4 +100,4 @@ const index = ({ searchParams }) => {
   );
 };
 
-export default index;
+export default Index;

@@ -12,6 +12,8 @@ config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] });
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   const router = useRouter();
   const [search, setSearch] = useState('');
@@ -32,9 +34,10 @@ export default function Home() {
             </span>
 
             <SearchBar
-                onClick={() => router.push(`/cursos?filter=${search}`)}
-                value={search}
-                setValue={(e) => setSearch(e.target.value)}></SearchBar>
+              onClick={() => router.push(`/cursos?filter=${search}`)}
+              value={search}
+              setValue={(e) => setSearch(e.target.value)}
+            ></SearchBar>
           </div>
 
           {/** Derecha */}

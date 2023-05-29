@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 const AsignaturaTab = ({ idAsig, codigo, nombre, reviews }) => {
   return (
     <Link

@@ -5,7 +5,9 @@ import createdacc from '../../../public/createdacc.png';
 import CustomButton from '../components/CustomButton';
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+export const dynamic = 'force-dynamic';
+
+const Page = () => {
   const router = useRouter();
 
   return (
@@ -45,4 +47,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
