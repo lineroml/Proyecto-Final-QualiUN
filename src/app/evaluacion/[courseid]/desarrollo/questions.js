@@ -66,7 +66,6 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
       if (res.status === 200) {
         alert('Respuestas enviadas');
         const body = await res.json();
-        console.log(body);
         router.push(`/cursos/${courseId}`);
       } else {
         alert('Error al enviar respuestas');

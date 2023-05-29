@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import CustomButton from '../../../components/CustomButton';
 import { useState } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 const Page = ({ params }) => {
   const id = params.courseid;
   const router = useRouter();

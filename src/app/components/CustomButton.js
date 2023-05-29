@@ -21,6 +21,8 @@ const textSize = {
   4: 'text-sm',
 };
 
+export const dynamic = 'force-dynamic';
+
 const CustomButton = ({
   type = 1,
   textS = 1,

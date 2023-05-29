@@ -6,6 +6,8 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from 'react-tooltip';
 
+export const dynamic = 'force-dynamic';
+
 const Stat = ({ stat }) => {
   const tooltip = (desc, hasReviews) => {
     if (hasReviews) {

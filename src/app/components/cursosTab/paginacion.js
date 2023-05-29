@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 
+export const dynamic = 'force-dynamic';
+
 const Paginacion = ({ inicio, salto, sgtePagina, antPagina, total, cambioSalto }) => {
   return (
     <div className='w-full h-10 mt-6 flex justify-between'>

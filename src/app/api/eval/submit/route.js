@@ -3,6 +3,8 @@ import PocketBase from 'pocketbase';
 
 const pb = new PocketBase('https://qualiun.pockethost.io/');
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request) {
   const body = await request.json();
 

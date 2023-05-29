@@ -3,6 +3,8 @@ import PocketBase from 'pocketbase';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 const pb = new PocketBase('https://qualiun.pockethost.io/');
 
 const processType = (type) => {

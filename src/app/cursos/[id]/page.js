@@ -8,6 +8,8 @@ import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 // Fetch course data
 const getCourse = async (id) => {
   const pb = new PocketBase('https://qualiun.pockethost.io/');
