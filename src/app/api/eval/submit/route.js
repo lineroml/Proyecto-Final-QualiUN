@@ -8,11 +8,12 @@ export const dynamic = 'force-dynamic';
 export async function POST(request) {
   const body = await request.json();
 
-  const { answers, courseId, userId } = body;
+  const { answers, courseId, userId, comment } = body;
 
   const review = await pb.collection('reviews').create({
     author: userId,
     course: courseId,
+    review_text: comment,
   });
 
   const answerResponses = [];

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AsignaturaTab from '../components/cursosTab/asignaturaTab';
 import Paginacion from '../components/cursosTab/paginacion';
+import { ColorRing } from 'react-loader-spinner';
 
 export const dynamic = 'force-dynamic';
 
@@ -66,7 +67,7 @@ const Index = ({ searchParams }) => {
             <span className='font-semibold'>{!loading && `${asignaturas.length} resultados`}</span>
           </div>
           <div className='flex flex-col mt-10 gap-2 w-full h-fit'>
-            {!loading &&
+            {!loading ? (
               asignaturas
                 .slice(inicio, inicio + salto)
                 .map((asignatura) => (
@@ -77,7 +78,14 @@ const Index = ({ searchParams }) => {
                     nombre={asignatura.nombre}
                     reviews={asignatura.reviews}
                   />
-                ))}
+                ))
+            ) : (
+              <ColorRing
+                colors={['#315098', '#FBD0E0', '#AFBDB0', '#1E1E1E', '#8CA8BE']}
+                height={50}
+                width={50}
+              />
+            )}
           </div>
           <Paginacion
             inicio={inicio}

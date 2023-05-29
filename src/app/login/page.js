@@ -117,6 +117,7 @@ const Login = () => {
             action={async () => {
               await handleLogin();
             }}
+            loading={loading}
             disabled={loading}
             icon='none'
           ></CustomButton>

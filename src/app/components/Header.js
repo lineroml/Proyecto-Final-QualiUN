@@ -36,6 +36,7 @@ const Header = () => {
             }
           }}
           disabled={status === 'loading'}
+          loading={status === 'loading'}
         ></CustomButton>
       </div>
     </header>
