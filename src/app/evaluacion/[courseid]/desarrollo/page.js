@@ -21,7 +21,6 @@ const processType = (type) => {
 const page = async ({ params }) => {
   const id = params.courseid;
   const course = await pb.collection('courses').getOne(id);
-  console.log(course);
   if (course.code === 404) {
     return redirect(404);
   }

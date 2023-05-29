@@ -1,10 +1,14 @@
 'use client';
 
-import CustomButton from '../../../components/CustomButton';
-
 import { use, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const Questions = ({ preguntas = [], courseId = '' }) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+
   const [questions, setQuestions] = useState(preguntas);
 
   /** create an answered questions array and each time one is answered, the value in that array's part changes, start fully false */
@@ -54,6 +58,21 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
         respuesta: answer,
       };
     });
+    fetch(`/api/eval/submit`, {
+      method: 'POST',
+      body: JSON.stringify({ answers, courseId, userId }),
+      cache: 'no-store',
+    }).then(async (res) => {
+      if (res.status === 200) {
+        alert('Respuestas enviadas');
+        const body = await res.json();
+        console.log(body);
+        router.push(`/cursos/${courseId}`);
+      } else {
+        alert('Error al enviar respuestas');
+        router.push(`/cursos/${courseId}`);
+      }
+    });
   };
 
   return (
@@ -76,7 +95,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                     selected[index] == 1 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-lime-400`}
                   onClick={() => {
-                    handleSelected(index, 1);
+                    handleSelected(index, 5);
                   }}
                 >
                   Muy Satisfecho
@@ -86,7 +105,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                     selected[index] == 2 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-lime-200`}
                   onClick={() => {
-                    handleSelected(index, 2);
+                    handleSelected(index, 4);
                   }}
                 >
                   Satisfecho
@@ -106,7 +125,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                     selected[index] == 4 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-orange-400`}
                   onClick={() => {
-                    handleSelected(index, 4);
+                    handleSelected(index, 2);
                   }}
                 >
                   Insatisfecho
@@ -116,7 +135,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                     selected[index] == 5 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-red-400`}
                   onClick={() => {
-                    handleSelected(index, 5);
+                    handleSelected(index, 1);
                   }}
                 >
                   Muy Insatisfecho
@@ -174,6 +193,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
           className='px-4 py-2 rounded-sm bg-chinese-blue text-white mt-4'
           onClick={() => {
             alert('can send!!!');
+            handleSend();
           }}
         >
           Enviar evaluación
