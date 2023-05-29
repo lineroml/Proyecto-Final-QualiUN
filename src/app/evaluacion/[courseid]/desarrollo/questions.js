@@ -58,7 +58,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
         respuesta: answer,
       };
     });
-    fetch(`/api/eval/submit`, {
+    fetch('/api/eval/submit', {
       method: 'POST',
       body: JSON.stringify({ answers, courseId, userId }),
       cache: 'no-store',
