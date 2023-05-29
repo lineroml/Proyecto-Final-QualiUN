@@ -79,7 +79,6 @@ const Curso = async ({ params }) => {
   const course = await getCourse(id).then((res) => res);
   const courseInfo = course.course;
   const reviews = course.reviews;
-  console.log(reviews);
   return (
     <div
       key={id}
