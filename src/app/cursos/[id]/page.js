@@ -9,10 +9,10 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
+const pb = new PocketBase('https://qualiun.pockethost.io/');
+
 // Fetch course data
 const getCourse = async (id) => {
-  const pb = new PocketBase('https://qualiun.pockethost.io/');
-
   const courseQuery = await pb.collection('courses').getOne(id, {
     expand: 'reviews(course).answers.question_answered.category, department',
   });
@@ -57,13 +57,25 @@ const getCourse = async (id) => {
   };
 };
 
+const studentHasReviewed = async (session, courseId) => {
+  let hasReviewed = false;
+  const reviewsByUserOnCourse = await pb.collection('reviews').getFullList({
+    filter: `course = "${courseId}" && author = "${session.user.id}"`,
+  });
+
+  return reviewsByUserOnCourse.length > 0;
+};
+
 const Curso = async ({ params }) => {
-  const { data: session } = getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
+  console.log(session);
   if (!session) {
     // redirect to login
-    //redirect('/login');
+    redirect('/login');
   }
   const { id } = params;
+
+  const hasReviewed = await studentHasReviewed(session, id);
 
   const course = await getCourse(id).then((res) => res);
   const courseInfo = course.course;
@@ -86,7 +98,11 @@ const Curso = async ({ params }) => {
             </h2>
           </div>
           <Link
-            className='px-4 py-2 rounded-sm bg-chinese-blue text-white mt-4 self-center'
+            className={
+              hasReviewed
+                ? 'hidden'
+                : 'px-4 py-2 rounded-sm bg-chinese-blue text-white mt-4 self-center'
+            }
             href={`/evaluacion/${id}/start`}
           >
             Enviar evaluación

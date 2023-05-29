@@ -91,7 +91,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
               <div className='w-full flex-wrap flex gap-2 text-sm mt-2'>
                 <button
                   className={`${
-                    selected[index] == 1 ? 'border-2 border-black' : 'border-none'
+                    selected[index] == 5 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-lime-400`}
                   onClick={() => {
                     handleSelected(index, 5);
@@ -101,7 +101,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                 </button>
                 <button
                   className={`${
-                    selected[index] == 2 ? 'border-2 border-black' : 'border-none'
+                    selected[index] == 4 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-lime-200`}
                   onClick={() => {
                     handleSelected(index, 4);
@@ -121,7 +121,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                 </button>
                 <button
                   className={`${
-                    selected[index] == 4 ? 'border-2 border-black' : 'border-none'
+                    selected[index] == 2 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-orange-400`}
                   onClick={() => {
                     handleSelected(index, 2);
@@ -131,7 +131,7 @@ const Questions = ({ preguntas = [], courseId = '' }) => {
                 </button>
                 <button
                   className={`${
-                    selected[index] == 5 ? 'border-2 border-black' : 'border-none'
+                    selected[index] == 1 ? 'border-2 border-black' : 'border-none'
                   } px-4 py-2 rounded-sm bg-red-400`}
                   onClick={() => {
                     handleSelected(index, 1);

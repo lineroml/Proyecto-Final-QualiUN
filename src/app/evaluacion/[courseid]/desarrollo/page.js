@@ -2,6 +2,8 @@ import Questions from './questions';
 import PocketBase from 'pocketbase';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import { AuthOptions } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,7 +29,7 @@ const page = async ({ params }) => {
     return redirect(404);
   }
 
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session) {
     return redirect('/login');
   }
