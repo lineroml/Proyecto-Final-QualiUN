@@ -5,7 +5,7 @@ const pb = new PocketBase('https://qualiun.pockethost.io/');
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(request, context) {
+export async function GET(request, context) {
   const { token } = context.params;
   console.log('================= Start API Call =================');
   console.log('Token:', token);
