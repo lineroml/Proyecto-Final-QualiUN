@@ -21,6 +21,12 @@ const getCourse = async (id) => {
     filter: 'active=True',
   });
 
+  const weights = attributeQuery.map((attribute) => attribute.weight);
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  attributeQuery.forEach((attribute) => {
+    attribute.weight = attribute.weight / totalWeight;
+  });
+
   const reviews = courseQuery.expand['reviews(course)'];
   let data;
   if (reviews) {
@@ -45,6 +51,11 @@ const getCourse = async (id) => {
   // We need to get each category and find its average across all reviews
   const averages = getAveragesForCourse(data, attributeQuery);
 
+  // using the averages and weights, we can calculate the overall average
+  let overallAverage = attributeQuery.reduce((acc, attribute) => {
+    return acc + attribute.weight * averages[attribute.id].value;
+  }, 0);
+
   return {
     course: {
       id: courseQuery.id,
@@ -52,6 +63,7 @@ const getCourse = async (id) => {
       department: courseQuery.expand.department.name,
       code: courseQuery.course_code + ' ' + courseQuery.course_number,
       values: averages,
+      overallAverage: overallAverage,
     },
     reviews: data,
   };
@@ -97,16 +109,30 @@ const Curso = async ({ params }) => {
               {courseInfo.department}
             </h2>
           </div>
+          <div className='text-center self-center'>
+            <Stat
+              stat={{
+                name: 'Puntaje General',
+                value: courseInfo.overallAverage,
+                count: courseInfo.overallAverage === 0 ? 0 : 1,
+                desc: 'Puntaje general de la materia. Calculado con base en las evaluaciones del curso usando pesos ponderados.',
+              }}
+              center={true}
+              size={'3xl'}
+              showCount={false}
+            ></Stat>
+          </div>
           <Link
             className={
               hasReviewed
                 ? 'hidden'
-                : 'px-4 py-2 rounded-sm bg-chinese-blue text-white mt-4 self-center'
+                : 'px-4 py-2 rounded-sm bg-chinese-blue text-white mt-6 self-center'
             }
             href={`/evaluacion/${id}/start`}
           >
             Enviar evaluación
           </Link>
+
           <div className='w-fit'>
             <h1 className='text-2xl font-semibold mt-16 px-2'>Estadísticas</h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
@@ -119,18 +145,25 @@ const Curso = async ({ params }) => {
         </div>
         <div className='med-lg:w-[45%] sm:w-[80%] mb-16 p-4 flex-col overflow-y-auto gap-2 h-[600px] self-center rounded-lg border-2 border-dashed border-chinese-blue flex items-center'>
           <div className='w-fit p-9'>
-            <h1 className='sm:text-2xl text-xl font-semibold px-2'>Comentarios Generales</h1>
+            <h1 className='sm:text-2xl text-xl font-semibold px-2'>
+              Comentarios Generales
+            </h1>
             <div className='w-full h-1 bg-chinese-blue rounded-full'></div>
           </div>
           <div className='px-4 gap-2 pb-9 w-full h-full flex flex-col overflow-y-auto'>
             {reviews.filter((review) => review.comment !== '').length > 0 ? (
               reviews.map(
-                (review) => review.comment && <Comment key={review.id} comment={review}></Comment>
+                (review) =>
+                  review.comment && (
+                    <Comment key={review.id} comment={review}></Comment>
+                  )
               )
             ) : (
               <div className='w-full h-full flex flex-col items-center justify-center'>
                 <h1 className='text-2xl font-semibold'>No hay comentarios</h1>
-                <p className='text-center'>Sé el primero en comentar sobre este curso</p>
+                <p className='text-center'>
+                  Sé el primero en comentar sobre este curso
+                </p>
               </div>
             )}
           </div>
